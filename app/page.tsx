@@ -1,602 +1,230 @@
-import {
-  collectionStats as treeckoCollectionStats,
-} from "../data/treecko-cards";
-
-const TREECKO_QUANTITY_GOAL = 10000;
-
-const quantityOwned =
-  treeckoCollectionStats.totalCopiesOwned ?? treeckoCollectionStats.owned;
-
-const quantityProgress = Math.min(
-  (quantityOwned / TREECKO_QUANTITY_GOAL) * 100,
-  100
-);
-
-const collectionStats = [
-  {
-    value: treeckoCollectionStats.total.toString(),
-    label: "Known Targets",
-  },
-  {
-    value: quantityOwned.toLocaleString(),
-    label: "Treeckos Owned",
-  },
-  {
-    value: "10,000",
-    label: "Collection Goal",
-  },
+const masterList = [
+  { id: 1, year: 2003, set: "EX Ruby & Sapphire", number: "75/109", variant: "Normal" },
+  { id: 2, year: 2003, set: "EX Ruby & Sapphire", number: "75/109", variant: "Reverse Holo" },
+  { id: 3, year: 2003, set: "EX Ruby & Sapphire", number: "76/109", variant: "Normal" },
+  { id: 4, year: 2003, set: "EX Ruby & Sapphire", number: "76/109", variant: "Reverse Holo" },
+  { id: 5, year: 2003, set: "EX Ruby & Sapphire", number: "76/109", variant: "Jumbo 25th Celebration" },
+  { id: 6, year: 2003, set: "EX Ruby & Sapphire", number: "76/109", variant: "Reed Weichler" },
+  { id: 7, year: 2003, set: "Nintendo Black Star Promos", number: "003", variant: "Reverse Holo" },
+  { id: 8, year: 2003, set: "Nintendo Black Star Promos", number: "007", variant: "Holo Pop Tournament" },
+  { id: 9, year: 2003, set: "Nintendo Black Star Promos", number: "016", variant: "Normal" },
+  { id: 10, year: 2003, set: "Nintendo Black Star Promos", number: "016", variant: "Holo Cosmos" },
+  { id: 11, year: 2003, set: "EX Dragon", number: "80/97", variant: "Normal" },
+  { id: 12, year: 2003, set: "EX Dragon", number: "80/97", variant: "Reverse Holo" },
+  { id: 13, year: 2004, set: "Poké Card Creator Pack", number: "1/5", variant: "Normal" },
+  { id: 14, year: 2004, set: "EX Team Rocket Returns", number: "109/109", variant: "Treecko ★ Gold Star Holo" },
+  { id: 15, year: 2005, set: "EX Emerald", number: "70/106", variant: "Normal" },
+  { id: 16, year: 2005, set: "EX Emerald", number: "70/106", variant: "Gen Con" },
+  { id: 17, year: 2005, set: "EX Emerald", number: "70/106", variant: "Reverse Holo / Set Logo" },
+  { id: 18, year: 2006, set: "POP Series 4", number: "15/17", variant: "Treecko δ — Normal" },
+  { id: 19, year: 2006, set: "EX Crystal Guardians", number: "67/100", variant: "Normal" },
+  { id: 20, year: 2006, set: "EX Crystal Guardians", number: "67/100", variant: "Reverse Holo / Set Logo" },
+  { id: 21, year: 2006, set: "EX Crystal Guardians", number: "68/100", variant: "Treecko δ — Normal" },
+  { id: 22, year: 2006, set: "EX Crystal Guardians", number: "68/100", variant: "Treecko δ — Reverse Holo / Set Logo" },
+  { id: 23, year: 2008, set: "Great Encounters", number: "90/106", variant: "Normal" },
+  { id: 24, year: 2008, set: "Great Encounters", number: "90/106", variant: "Reverse Holo" },
+  { id: 25, year: 2008, set: "Stormfront", number: "79/100", variant: "Normal" },
+  { id: 26, year: 2008, set: "Stormfront", number: "79/100", variant: "Reverse Holo" },
+  { id: 27, year: 2009, set: "Arceus", number: "78/99", variant: "Normal" },
+  { id: 28, year: 2009, set: "Arceus", number: "78/99", variant: "Reverse Holo" },
+  { id: 29, year: 2009, set: "Arceus", number: "79/99", variant: "Normal" },
+  { id: 30, year: 2009, set: "Arceus", number: "79/99", variant: "Reverse Holo" },
+  { id: 31, year: 2013, set: "Plasma Freeze", number: "6/116", variant: "Normal" },
+  { id: 32, year: 2013, set: "XY Black Star Promos", number: "XY36", variant: "Normal" },
+  { id: 33, year: 2015, set: "Primal Clash", number: "6/160", variant: "Normal" },
+  { id: 34, year: 2015, set: "XY Trainer Kit — Latias", number: "7/30", variant: "Normal" },
+  { id: 35, year: 2015, set: "XY Trainer Kit — Latias", number: "24/30", variant: "Normal" },
+  { id: 36, year: 2015, set: "McDonald's Collection 2015", number: "1/12", variant: "Holo" },
+  { id: 37, year: 2018, set: "Celestial Storm", number: "7/168", variant: "Normal" },
+  { id: 38, year: 2018, set: "Celestial Storm", number: "8/168", variant: "Normal" },
+  { id: 39, year: 2018, set: "Lost Thunder", number: "20/214", variant: "Normal" },
+  { id: 40, year: 2021, set: "McDonald's Collection 2021", number: "3/25", variant: "25th Celebration" },
+  { id: 41, year: 2021, set: "McDonald's Collection 2021", number: "3/25", variant: "Holo 25th Celebration" },
+  { id: 42, year: 2025, set: "MEP Black Star Promos", number: "055", variant: "Holo" },
 ];
 
-const huntCards = [
+const wantedCards = [
   {
-    status: "GRAIL",
-    eyebrow: "ULTIMATE GRAIL",
-    title: "Treecko ☆ — EX Team Rocket Returns",
-    description:
-      "Treecko ☆ 109/109 sits near the top of my personal wanted list. Finding the right copy — at the right condition and price — is one of the biggest long-term goals of the collection.",
+    name: "Treecko ★",
+    set: "EX Team Rocket Returns",
+    number: "109/109",
+    variant: "Gold Star Holo",
+    tier: "GRAIL",
   },
   {
-    status: "HUNTING",
-    eyebrow: "WANTED",
-    title: "The next missing Treecko",
-    description:
-      "Every printing, promo, language, reverse holo, stamped card, and obscure variant moves the collection one step closer to completion.",
+    name: "Treecko",
+    set: "EX Dragon",
+    number: "80/97",
+    variant: "Reverse Holo",
+    tier: "WANT",
   },
   {
-    status: "HUNTING",
-    eyebrow: "CONDITION",
-    title: "Upgrade candidates",
-    description:
-      "Completing the checklist comes first. After that, damaged and heavily played copies can eventually be upgraded to better-condition examples.",
-  },
-];
-
-const resources = [
-  {
-    number: "01",
-    title: "Find the cards",
-    description:
-      "The marketplaces, card shops, databases, and tools I use while searching for Treecko cards.",
-    cta: "Marketplace guide coming soon",
+    name: "Treecko",
+    set: "Poké Card Creator Pack",
+    number: "1/5",
+    variant: "Poké Card Creator Contest",
+    tier: "GRAIL",
   },
   {
-    number: "02",
-    title: "Protect the collection",
-    description:
-      "Sleeves, binders, top loaders, storage, and supplies used throughout the collection.",
-    cta: "Collector gear coming soon",
+    name: "Ash's Treecko",
+    set: "ADV-P Promotional Card",
+    number: "036/ADV-P",
+    variant: "Japanese Promo",
+    tier: "GRAIL",
   },
   {
-    number: "03",
-    title: "Grade & preserve",
-    description:
-      "Tracking grading decisions, condition upgrades, and long-term preservation.",
-    cta: "Grading guide coming soon",
+    name: "Treecko δ",
+    set: "EX Crystal Guardians",
+    number: "68/100",
+    variant: "Reverse Holo / Set Logo",
+    tier: "WANT",
+  },
+  {
+    name: "Treecko",
+    set: "EX Emerald",
+    number: "70/106",
+    variant: "Reverse Holo / Set Logo",
+    tier: "WANT",
+  },
+  {
+    name: "Treecko",
+    set: "EX Crystal Guardians",
+    number: "67/100",
+    variant: "Reverse Holo / Set Logo",
+    tier: "WANT",
   },
 ];
 
 export default function Home() {
   return (
-    <main className="site-shell">
-      <header className="site-header">
-        <a className="brand" href="#top" aria-label="shinytreecko252 home">
-          <span className="brand-mark">252</span>
-
-          <span>
-            <strong>shinytreecko</strong>
-            <em>.com</em>
-          </span>
+    <main>
+      <header className="siteHeader">
+        <a className="brand" href="#top">
+          SHINY<span>TREECKO</span>252
         </a>
 
-        <nav className="nav" aria-label="Main navigation">
-          <a href="#checklist">Checklist</a>
-          <a href="#collection">Collection</a>
-          <a href="#hunt">Wanted</a>
-          <a href="/story">My Story</a>
-          <a href="#resources">Resources</a>
-          <a href="#phygital">Phygital</a>
+        <nav>
+          <a href="#master-list">42 LIST</a>
+          <a href="#wanted">WANTED</a>
         </nav>
-
-        <a
-          className="x-button"
-          href="https://x.com/ShinyTreecko252"
-          target="_blank"
-          rel="noreferrer"
-        >
-          Follow on X ↗
-        </a>
       </header>
 
       <section className="hero" id="top">
-        <div className="hero-grid" />
-
-        <div className="hero-content">
-          <p className="kicker">
-            <span />
-            A Pokémon collecting project
-          </p>
-
-          <h1>
-            THE QUEST FOR
-            <br />
-            <span>EVERY TREECKO.</span>
-          </h1>
-
-          <p className="hero-copy">
-            One collector. One Pokémon. Every card, printing, promo, language,
-            and variant I can find — documented from the beginning.
-          </p>
-
-          <div className="hero-actions">
-            <a className="primary-button" href="#checklist">
-              Explore the checklist
-              <span>→</span>
-            </a>
-
-            <a className="text-button" href="/story">
-              Read my story →
-            </a>
-          </div>
-        </div>
-
-        <aside className="dex-card">
-          <div className="dex-top">
-            <span>COLLECTOR FILE</span>
-            <span>№ 0252</span>
-          </div>
-
-          <div className="dex-visual">
-            <div className="dex-orbit orbit-one" />
-            <div className="dex-orbit orbit-two" />
-            <div className="dex-number">252</div>
-          </div>
-
-          <div className="dex-name">
-            <span>SPECIES</span>
-            <strong>TREECKO</strong>
-          </div>
-
-          <div className="dex-meta">
-            <div>
-              <span>TYPE</span>
-              <strong>GRASS</strong>
-            </div>
-
-            <div>
-              <span>STATUS</span>
-              <strong>HUNTING</strong>
-            </div>
-          </div>
-        </aside>
-      </section>
-
-      <section className="stats-section" aria-label="Collection statistics">
-        {collectionStats.map((stat) => (
-          <div className="stat" key={stat.label}>
-            <strong>{stat.value}</strong>
-            <span>{stat.label}</span>
-          </div>
-        ))}
-
-        <div className="stat stat-progress">
-          <div className="progress-heading">
-            <span>10,000 Treecko Goal</span>
-
-            <strong>
-              {quantityOwned.toLocaleString()} /{" "}
-              {TREECKO_QUANTITY_GOAL.toLocaleString()} ·{" "}
-              {quantityProgress.toFixed(2)}%
-            </strong>
-          </div>
-
-          <div className="progress-track">
-            <div
-              className="progress-fill"
-              style={{
-                width: `${quantityProgress}%`,
-              }}
-            />
-          </div>
-        </div>
-      </section>
-
-      <section className="section mission-section" id="mission">
-        <div className="section-label">
-          <span>01</span>
-          <p>The Mission</p>
-        </div>
-
-        <div className="mission-copy">
-          <p className="large-copy">
-            I&apos;m attempting something completely unreasonable:
-          </p>
-
-          <h2>
-            OWN ONE OF <em>EVERY</em>
-            <br />
-            TREECKO CARD.
-          </h2>
-
-          <div className="mission-columns">
-            <p>
-              This isn&apos;t a collection built around whatever card is
-              currently expensive. It&apos;s about choosing one Pokémon and
-              following its history through the Pokémon Trading Card Game.
-            </p>
-
-            <p>
-              The obvious cards count. So do the strange ones: foreign
-              printings, promos, reverse holos, stamped releases, and variants
-              hiding in old binders around the world.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section className="section mission-section" id="story">
-        <div className="section-label">
-          <span>02</span>
-          <p>My Story</p>
-        </div>
-
-        <div className="mission-copy">
-          <p className="eyebrow">WHY TREECKO?</p>
-
-          <h2>
-            THIS STARTED
-            <br />
-            LONG BEFORE THE CHECKLIST.
-          </h2>
-
-          <div className="mission-columns">
-            <p>
-              Pokémon has been part of my life since the Red and Blue era.
-              I grew up playing the games and collecting cards with my three
-              older brothers, back when the cards we now call vintage were
-              simply the cards our mom brought home for us.
-            </p>
-
-            <p>
-              Years later, coming back to Pokémon as an adult has brought back
-              something I didn&apos;t realize I missed: the hunt, the artwork,
-              the discovery, and the feeling of physically holding something
-              meaningful in an increasingly digital world.
-            </p>
-          </div>
-
-          <div className="hero-actions">
-            <a className="primary-button" href="/story">
-              Read my story
-              <span>→</span>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <section className="section checklist-section" id="checklist">
-        <div className="section-label">
-          <span>03</span>
-          <p>The Treecko Checklist</p>
-        </div>
-
-        <div className="section-heading-row">
-          <div>
-            <p className="eyebrow">THE DATABASE</p>
-
-            <h2>
-              EVERY CARD.
-              <br />
-              ONE CHECKLIST.
-            </h2>
-          </div>
-
-          <p className="section-intro">
-            The public record of the hunt. Follow what&apos;s already in the
-            collection, what&apos;s still missing, which variants I&apos;m
-            discovering, and which cards have become major grails.
-          </p>
-        </div>
-
-        <div className="checklist-preview">
-          <div className="checklist-header">
-            <span>STATUS</span>
-            <span>CARD</span>
-            <span>COLLECTION</span>
-          </div>
-
-          <div className="checklist-row">
-            <span className="status-dot owned" />
-
-            <div>
-              <strong>Distinct Treeckos Owned</strong>
-              <small>Unique checklist targets currently in the collection</small>
-            </div>
-
-            <span className="status owned-text">
-              {treeckoCollectionStats.owned} OWNED
-            </span>
-          </div>
-
-          <div className="checklist-row">
-            <span className="status-dot hunting" />
-
-            <div>
-              <strong>Known Treecko Targets</strong>
-              <small>Current cards represented in the database</small>
-            </div>
-
-            <span className="status">
-              {treeckoCollectionStats.total} TARGETS
-            </span>
-          </div>
-
-          <div className="checklist-row">
-            <span className="status-dot grail" />
-
-            <div>
-              <strong>Grail Tracker</strong>
-              <small>The hardest Treeckos currently on the wanted list</small>
-            </div>
-
-            <span className="status">
-              {treeckoCollectionStats.grails} GRAILS
-            </span>
-          </div>
-        </div>
-
-        <div className="legend">
-          <span>
-            <i className="legend-owned" /> Owned
-          </span>
-
-          <span>
-            <i className="legend-hunting" /> Hunting
-          </span>
-
-          <span>
-            <i className="legend-grail" /> Grail
-          </span>
-        </div>
-      </section>
-
-      <section className="section collection-section" id="collection">
-        <div className="section-label">
-          <span>04</span>
-          <p>The Collection</p>
-        </div>
-
-        <div className="collection-feature">
-          <div className="collection-placeholder">
-            <span>10,000 TREECKO PROJECT</span>
-
-            <strong>
-              {quantityOwned.toLocaleString()}
-              <br />
-              OF
-              <br />
-              {TREECKO_QUANTITY_GOAL.toLocaleString()}
-            </strong>
-
-            <small>{quantityProgress.toFixed(2)}% of the quantity goal</small>
-          </div>
-
-          <div className="collection-story">
-            <p className="eyebrow">FOLLOW THE COLLECTION GROW</p>
-
-            <h2>ONE TREECKO AT A TIME.</h2>
-
-            <p>
-              Completing the master checklist is only one part of the project.
-              I&apos;m also working toward owning 10,000 physical Treecko cards.
-              Duplicates count. Commons count. Strange printings count. Every
-              Treecko added to the collection moves the number forward.
-            </p>
-
-            <p>
-              This site will document both sides of the journey: which unique
-              cards I&apos;ve found and the total number of Treecko cards in the
-              collection so the community can follow the count as it grows.
-            </p>
-          </div>
-        </div>
-
-        <div className="collection-feature">
-          <div className="collection-placeholder">
-            <span>CHECKLIST PROGRESS</span>
-
-            <strong>
-              {treeckoCollectionStats.owned}
-              <br />
-              OF
-              <br />
-              {treeckoCollectionStats.total}
-            </strong>
-
-            <small>
-              {treeckoCollectionStats.completionPercentage}% complete
-            </small>
-          </div>
-
-          <div className="collection-story">
-            <p className="eyebrow">DOCUMENTING THE JOURNEY</p>
-
-            <h2>THE CARD IS ONLY HALF THE STORY.</h2>
-
-            <p>
-              Every major pickup can have its own record: where I found it,
-              why I wanted it, what I paid, its condition, and where it fits
-              into the larger collection.
-            </p>
-
-            <p>
-              Years from now, this site should show more than a completed
-              binder. It should show exactly how that collection was built.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section className="section hunt-section" id="hunt">
-        <div className="section-label">
-          <span>05</span>
-          <p>Wanted List</p>
-        </div>
-
-        <div className="section-heading-row">
-          <div>
-            <p className="eyebrow">THE WANT LIST</p>
-
-            <h2>
-              THE HUNT
-              <br />
-              NEVER STOPS.
-            </h2>
-          </div>
-
-          <p className="section-intro">
-            These are the cards currently occupying the top of my radar.
-            See something I&apos;m missing? Find a forgotten Treecko in an old
-            binder? Tag <strong>@ShinyTreecko252</strong> on X.
-          </p>
-        </div>
-
-        <div className="hunt-grid">
-          {huntCards.map((card, index) => (
-            <article className="hunt-card" key={card.title}>
-              <div className="hunt-card-number">0{index + 1}</div>
-
-              <p className="eyebrow">{card.eyebrow}</p>
-
-              <h3>{card.title}</h3>
-
-              <p>{card.description}</p>
-
-              <span className={`pill ${card.status.toLowerCase()}`}>
-                {card.status}
-              </span>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="section resources-section" id="resources">
-        <div className="section-label">
-          <span>06</span>
-          <p>Collector Resources</p>
-        </div>
-
-        <div className="section-heading-row">
-          <div>
-            <p className="eyebrow">THE TOOLKIT</p>
-
-            <h2>
-              WHAT I ACTUALLY
-              <br />
-              USE TO COLLECT.
-            </h2>
-          </div>
-
-          <p className="section-intro">
-            Marketplaces, storage, protection, grading, research tools, and
-            other resources discovered while building the collection.
-          </p>
-        </div>
-
-        <div className="resource-list">
-          {resources.map((resource) => (
-            <article className="resource-row" key={resource.number}>
-              <span>{resource.number}</span>
-
-              <div>
-                <h3>{resource.title}</h3>
-                <p>{resource.description}</p>
-              </div>
-
-              <strong>{resource.cta} →</strong>
-            </article>
-          ))}
-        </div>
-
-        <p className="affiliate-disclosure">
-          Disclosure: Some future links on this site may be affiliate links. If
-          you purchase through one of those links, I may earn a commission at
-          no additional cost to you.
+        <div className="eyebrow">#0252 · TREECKO</div>
+
+        <h1>
+          THE QUEST FOR
+          <br />
+          <span>EVERY TREECKO.</span>
+        </h1>
+
+        <p className="intro">
+          ShinyTreecko252 is my personal Pokémon TCG collecting project.
+          I&apos;m documenting the hunt to own the 42 Treecko physical
+          variants in my English Grand Master checklist while building a
+          collection around one of my favorite Pokémon.
         </p>
+
+        <div className="heroStats">
+          <div>
+            <strong>42</strong>
+            <span>MASTER LIST</span>
+          </div>
+
+          <div>
+            <strong>7</strong>
+            <span>TOP WANTS</span>
+          </div>
+
+          <div>
+            <strong>#0252</strong>
+            <span>TREECKO</span>
+          </div>
+        </div>
       </section>
 
-      <section className="section phygital-section" id="phygital">
-        <div className="phygital-copy">
-          <p className="eyebrow">PHYSICAL × DIGITAL</p>
-
-          <h2>
-            CARDBOARD ISN&apos;T
-            <br />
-            DISAPPEARING.
-            <br />
-            <em>IT&apos;S GETTING NEW RAILS.</em>
-          </h2>
+      <section className="section" id="master-list">
+        <div className="sectionHeading">
+          <div>
+            <span className="sectionNumber">01</span>
+            <h2>THE 42.</h2>
+          </div>
 
           <p>
-            Exploring where traditional collecting intersects with digital
-            marketplaces, verifiable provenance, tokenization, and on-chain
-            ownership — without losing sight of what makes the physical card
-            matter.
+            My Grand Master checklist of 42 known English Treecko physical
+            variants. The hunt starts here.
           </p>
         </div>
 
-        <div className="phygital-mark">
-          <span>PHYSICAL</span>
-          <strong>×</strong>
-          <span>DIGITAL</span>
+        <div className="masterGrid">
+          {masterList.map((card) => (
+            <article className="masterCard" key={card.id}>
+              <div className="checkBox" aria-hidden="true" />
+
+              <div className="cardNumber">
+                {String(card.id).padStart(2, "0")}
+              </div>
+
+              <div className="cardInfo">
+                <div className="cardTop">
+                  <strong>{card.set}</strong>
+                  <span>{card.year}</span>
+                </div>
+
+                <div className="cardBottom">
+                  <span>{card.number}</span>
+                  <span>{card.variant}</span>
+                </div>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
 
-      <section className="final-cta">
-        <p className="eyebrow">FOLLOW THE HUNT</p>
+      <section className="wantedSection" id="wanted">
+        <div className="sectionHeading wantedHeading">
+          <div>
+            <span className="sectionNumber">02</span>
+            <h2>GRAILS + WANTS.</h2>
+          </div>
 
-        <h2>
-          FIND A TREECKO?
-          <br />
-          <span>TAG ME.</span>
-        </h2>
+          <p>
+            The Treecko cards currently at the top of my hunt. Some are part
+            of the 42-card checklist; others are personal favorites outside it.
+          </p>
+        </div>
 
-        <p>
-          Old binder. Card shop. Auction. Foreign release. Weird promo.
-          <br />
-          If it&apos;s Treecko, I want to know about it.
-        </p>
+        <div className="wantedGrid">
+          {wantedCards.map((card, index) => (
+            <article className="wantedCard" key={`${card.name}-${card.number}`}>
+              <div className="wantedTop">
+                <span className={card.tier === "GRAIL" ? "grailTag" : "wantTag"}>
+                  {card.tier}
+                </span>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+              </div>
 
-        <a
-          className="primary-button"
-          href="https://x.com/ShinyTreecko252"
-          target="_blank"
-          rel="noreferrer"
-        >
-          @ShinyTreecko252 on X
-          <span>↗</span>
-        </a>
+              <h3>{card.name}</h3>
+              <p>{card.set}</p>
+
+              <div className="wantedMeta">
+                <span>{card.number}</span>
+                <span>{card.variant}</span>
+              </div>
+            </article>
+          ))}
+        </div>
       </section>
 
       <footer>
-        <div className="brand footer-brand">
-          <span className="brand-mark">252</span>
-
-          <span>
-            <strong>shinytreecko</strong>
-            <em>.com</em>
-          </span>
-        </div>
+        <strong>
+          SHINY<span>TREECKO</span>252
+        </strong>
 
         <p>
-          An independent Pokémon card collecting project.
-          <br />
-          Not affiliated with Nintendo, Creatures Inc., GAME FREAK, or The
-          Pokémon Company.
+          Independent Pokémon fan collection project. Pokémon and related
+          trademarks belong to their respective owners.
         </p>
-
-        <span>
-          © {new Date().getFullYear()} shinytreecko252.com
-        </span>
       </footer>
     </main>
   );
