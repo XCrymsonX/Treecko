@@ -1,5 +1,7 @@
 import {
   grandMasterStats,
+  grailPickStats,
+  treeckoGrailPicks,
   treeckoMasterCards,
 } from "../../data/treecko-master";
 
@@ -18,6 +20,25 @@ export default function ChecklistPage() {
         .master-progress { height:10px; border:1px solid var(--ink); margin-top:18px; overflow:hidden; }
         .master-progress > span { display:block; height:100%; background:var(--green-dark); }
         .master-note { margin:26px 0 34px; padding:18px 20px; border-left:5px solid var(--orange); background:rgba(255,255,255,.18); line-height:1.6; }
+
+        .wanted-section { margin:58px 0 68px; scroll-margin-top:36px; }
+        .wanted-heading { display:grid; grid-template-columns:1fr .7fr; gap:34px; align-items:end; margin-bottom:22px; }
+        .wanted-heading h2 { margin:8px 0 0; font-size:clamp(2.4rem,5vw,5rem); line-height:.9; letter-spacing:-.045em; }
+        .wanted-heading h2 span { color:var(--orange); }
+        .wanted-heading > p { color:var(--muted); line-height:1.7; }
+        .wanted-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+        .wanted-card { border:1px solid var(--line); padding:22px; background:rgba(255,255,255,.16); display:grid; grid-template-columns:60px 1fr auto; gap:18px; align-items:start; }
+        .wanted-card.found { background:rgba(88,169,54,.15); }
+        .wanted-rank { width:50px; height:50px; display:grid; place-items:center; border:1px solid var(--ink); font-weight:900; }
+        .wanted-tier { display:inline-block; margin-bottom:8px; font-size:.7rem; font-weight:900; letter-spacing:.12em; text-transform:uppercase; }
+        .wanted-tier.grail { color:var(--orange); }
+        .wanted-card h3 { margin:0 0 4px; font-size:1.35rem; }
+        .wanted-meta { margin:0 0 8px; color:var(--muted); }
+        .wanted-note { margin:0; line-height:1.55; }
+        .wanted-status { font-size:.72rem; font-weight:900; letter-spacing:.1em; text-transform:uppercase; border:1px solid var(--ink); padding:8px 10px; white-space:nowrap; }
+        .wanted-card.found .wanted-status { background:var(--green-dark); color:#fff; border-color:var(--green-dark); }
+        .wanted-summary { margin-top:14px; color:var(--muted); font-size:.9rem; }
+
         .master-table { border-top:1px solid var(--line); }
         .master-head, .master-row { display:grid; grid-template-columns:56px 74px 100px minmax(200px,1.35fr) 110px minmax(170px,1fr) 130px; gap:14px; align-items:center; }
         .master-head { padding:14px 10px; font-size:.72rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; border-bottom:1px solid var(--line); }
@@ -33,13 +54,18 @@ export default function ChecklistPage() {
         .master-video { font-weight:800; text-decoration:underline; text-underline-offset:3px; }
         .master-footer-note { margin-top:28px; color:var(--muted); font-size:.9rem; line-height:1.6; }
         @media (max-width: 1000px) {
-          .master-top { grid-template-columns:1fr; }
+          .master-top, .wanted-heading { grid-template-columns:1fr; }
+          .wanted-grid { grid-template-columns:1fr; }
           .master-head { display:none; }
           .master-row { grid-template-columns:44px 60px 1fr; gap:10px; align-items:start; }
           .master-row > :nth-child(4), .master-row > :nth-child(5), .master-row > :nth-child(6), .master-row > :nth-child(7) { grid-column:3; }
           .master-row > :nth-child(4)::before { content:"Set: "; font-weight:400; color:var(--muted); }
           .master-row > :nth-child(5)::before { content:"Card: "; font-weight:400; color:var(--muted); }
           .master-row > :nth-child(6)::before { content:"Variant: "; font-weight:400; color:var(--muted); }
+        }
+        @media (max-width: 650px) {
+          .wanted-card { grid-template-columns:48px 1fr; }
+          .wanted-status { grid-column:2; justify-self:start; }
         }
       `}</style>
 
@@ -55,7 +81,7 @@ export default function ChecklistPage() {
         <nav className="nav" aria-label="Main navigation">
           <a href="/checklist">Checklist</a>
           <a href="/#collection">Collection</a>
-          <a href="/#hunt">Wanted</a>
+          <a href="#wanted">Wanted</a>
           <a href="/story">My Story</a>
           <a href="/#resources">Resources</a>
           <a href="/#phygital">Phygital</a>
@@ -106,6 +132,57 @@ export default function ChecklistPage() {
           in the ShinyTreecko252 Excel master and published after each update. Duplicate
           copies count toward the separate 10,000 Treecko quest, not toward 42/42 completion.
         </div>
+
+        <section className="wanted-section" id="wanted">
+          <div className="wanted-heading">
+            <div>
+              <p className="eyebrow">GRAILS &amp; GEM PICKS</p>
+              <h2>
+                THE ONES I
+                <br />
+                <span>REALLY WANT.</span>
+              </h2>
+            </div>
+            <p>
+              A personal shortlist of Treecko cards at the top of the hunt. Some are
+              part of the English 42-card Grand Master Set; others, like Ash&apos;s Treecko,
+              sit outside it and are tracked separately.
+            </p>
+          </div>
+
+          <div className="wanted-grid">
+            {treeckoGrailPicks.map((card) => (
+              <article
+                className={`wanted-card ${card.found ? "found" : ""}`}
+                key={`${card.rank}-${card.cardNumber}`}
+              >
+                <div className="wanted-rank">{String(card.rank).padStart(2, "0")}</div>
+                <div>
+                  <span
+                    className={`wanted-tier ${card.tier === "GRAIL" ? "grail" : ""}`}
+                  >
+                    {card.tier}
+                  </span>
+                  <h3>{card.displayName}</h3>
+                  <p className="wanted-meta">
+                    {card.year} · {card.set} · {card.cardNumber}
+                  </p>
+                  <p className="wanted-note">
+                    <strong>{card.variant}</strong> — {card.publicNote}
+                  </p>
+                </div>
+                <span className="wanted-status">
+                  {card.found ? "FOUND" : "WANT"}
+                </span>
+              </article>
+            ))}
+          </div>
+
+          <p className="wanted-summary">
+            {grailPickStats.found}/{grailPickStats.total} grails &amp; gem picks found.
+            These do not change the 42-card denominator.
+          </p>
+        </section>
 
         <div className="master-table">
           <div className="master-head">

@@ -702,3 +702,116 @@ export const grandMasterStats = {
     (treeckoMasterCards.filter((card) => card.owned).length / treeckoMasterCards.length) * 100,
   ),
 };
+
+export type TreeckoGrailPick = {
+  rank: number;
+  tier: "GRAIL" | "GEM PICK";
+  displayName: string;
+  year: number;
+  set: string;
+  cardNumber: string;
+  variant: string;
+  masterId: number | null;
+  found: boolean;
+  publicNote: string;
+  sourceUrl: string;
+};
+
+export const treeckoGrailPicks: TreeckoGrailPick[] = [
+  {
+    rank: 1,
+    tier: "GRAIL",
+    displayName: "Treecko ★",
+    year: 2004,
+    set: "EX Team Rocket Returns",
+    cardNumber: "109/109",
+    variant: "Gold Star Holo",
+    masterId: 14,
+    found: false,
+    publicNote: "The signature Treecko grail.",
+    sourceUrl: "https://bulbapedia.bulbagarden.net/wiki/Treecko_%E2%98%85_(EX_Team_Rocket_Returns_109)",
+  },
+  {
+    rank: 2,
+    tier: "GEM PICK",
+    displayName: "Treecko",
+    year: 2003,
+    set: "EX Dragon",
+    cardNumber: "80/97",
+    variant: "Reverse Holo",
+    masterId: 12,
+    found: false,
+    publicNote: "A favorite early EX-era reverse holo.",
+    sourceUrl: "https://bulbapedia.bulbagarden.net/wiki/Treecko_(EX_Dragon_80)",
+  },
+  {
+    rank: 3,
+    tier: "GRAIL",
+    displayName: "Treecko",
+    year: 2004,
+    set: "Poké Card Creator Pack",
+    cardNumber: "1/5",
+    variant: "Poké Card Creator Contest",
+    masterId: 13,
+    found: false,
+    publicNote: "Kids' WB! Poké Card Creator Contest winning-art card.",
+    sourceUrl: "https://bulbapedia.bulbagarden.net/wiki/Poke_Card_Creator_Pack_(TCG)",
+  },
+  {
+    rank: 4,
+    tier: "GRAIL",
+    displayName: "Ash's Treecko",
+    year: 2003,
+    set: "ADV-P Promotional cards (Japan)",
+    cardNumber: "036/ADV-P",
+    variant: "Japanese Promo",
+    masterId: null,
+    found: false,
+    publicNote: "Japanese-only Ash's Treecko promo; outside the English 42-card master set.",
+    sourceUrl: "https://bulbapedia.bulbagarden.net/wiki/Ash%27s_Treecko_(ADV-P_Promo_36)",
+  },
+  {
+    rank: 5,
+    tier: "GEM PICK",
+    displayName: "Treecko δ",
+    year: 2006,
+    set: "EX Crystal Guardians",
+    cardNumber: "68/100",
+    variant: "Reverse Holo / Set Logo",
+    masterId: 22,
+    found: false,
+    publicNote: "40 HP Delta Species Treecko.",
+    sourceUrl: "https://bulbapedia.bulbagarden.net/wiki/Treecko_%CE%B4_(EX_Crystal_Guardians_68)",
+  },
+  {
+    rank: 6,
+    tier: "GEM PICK",
+    displayName: "Treecko",
+    year: 2005,
+    set: "EX Emerald",
+    cardNumber: "70/106",
+    variant: "Reverse Holo / Set Logo",
+    masterId: 17,
+    found: false,
+    publicNote: "Mitsuhiro Arita artwork.",
+    sourceUrl: "https://bulbapedia.bulbagarden.net/wiki/Treecko_(EX_Emerald_70)",
+  },
+  {
+    rank: 7,
+    tier: "GEM PICK",
+    displayName: "Treecko",
+    year: 2006,
+    set: "EX Crystal Guardians",
+    cardNumber: "67/100",
+    variant: "Reverse Holo / Set Logo",
+    masterId: 20,
+    found: false,
+    publicNote: "40 HP Sachiko Adachi artwork.",
+    sourceUrl: "https://bulbapedia.bulbagarden.net/wiki/Treecko_(EX_Crystal_Guardians_67)",
+  },
+];
+
+export const grailPickStats = {
+  total: treeckoGrailPicks.length,
+  found: treeckoGrailPicks.filter((card) => card.found).length,
+};
